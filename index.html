@@ -1,75 +1,180 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI WORLD</title>
+<title>AI WORLD — Create Without Limits</title>
 <style>
-* { box-sizing: border-box; }
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: #0b1020;
-  color: white;
-  text-align: center;
+*{box-sizing:border-box}
+body{
+ margin:0;
+ font-family:Arial,sans-serif;
+ background:#080d1b;
+ color:white;
 }
-header {
-  padding: 24px;
-  font-size: 26px;
-  font-weight: bold;
-  color: #8b9cff;
+header{
+ display:flex;
+ justify-content:space-between;
+ align-items:center;
+ padding:22px 7%;
+ border-bottom:1px solid #202943;
 }
-.hero { padding: 75px 20px; }
-h1 { color: #8b9cff; font-size: 44px; }
-p { color: #c0c8df; font-size: 18px; line-height: 1.6; }
-button {
-  background: #687cff;
-  color: white;
-  border: 0;
-  padding: 15px 28px;
-  border-radius: 10px;
-  font-size: 17px;
-  cursor: pointer;
+.logo{font-size:25px;font-weight:bold;color:#91a1ff}
+nav a{
+ color:#c4cce4;
+ text-decoration:none;
+ margin-left:22px;
+ font-size:14px;
 }
-.cards {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 20px;
-  padding: 20px;
+.hero{
+ text-align:center;
+ padding:100px 20px 75px;
+ background:radial-gradient(ellipse at top,#202d61,#080d1b 65%);
 }
-.card {
-  background: #171f38;
-  padding: 30px;
-  border-radius: 16px;
-  width: 280px;
+.tag{
+ color:#a8b5ff;
+ letter-spacing:3px;
+ font-size:12px;
 }
-footer { padding: 35px; color: #8792b2; }
+h1{
+ font-size:clamp(38px,7vw,68px);
+ margin:25px 0;
+ line-height:1.1;
+}
+h1 span{color:#899bff}
+.hero p{
+ color:#b5bfd9;
+ font-size:18px;
+ line-height:1.7;
+ max-width:620px;
+ margin:0 auto 32px;
+}
+.btn{
+ display:inline-block;
+ padding:16px 30px;
+ background:#7185ff;
+ color:white;
+ border-radius:10px;
+ text-decoration:none;
+ font-weight:bold;
+}
+.section{
+ padding:65px 7%;
+ text-align:center;
+}
+.section h2{font-size:32px}
+.section>p{color:#aab5d1}
+.cards{
+ display:grid;
+ grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+ gap:22px;
+ margin-top:35px;
+}
+.card{
+ background:#141d35;
+ border:1px solid #263252;
+ border-radius:17px;
+ padding:32px 22px;
+ text-align:left;
+}
+.card .symbol{font-size:34px}
+.card h3{font-size:21px}
+.card p{
+ color:#aeb9d3;
+ line-height:1.6;
+}
+.card a{
+ color:#9baaff;
+ text-decoration:none;
+ font-size:14px;
+}
+.community{
+ background:#111a30;
+ text-align:center;
+ padding:65px 20px;
+}
+.community p{color:#b4bfd8}
+footer{
+ text-align:center;
+ padding:30px;
+ color:#8490ad;
+ font-size:13px;
+ border-top:1px solid #202943;
+}
+@media(max-width:600px){
+ header{padding:18px 5%}
+ nav a{margin-left:10px;font-size:12px}
+ .hero{padding:75px 18px}
+ .section{padding:50px 5%}
+}
 </style>
 </head>
 <body>
-<header>AI WORLD</header>
+
+<header>
+ <div class="logo">AI WORLD</div>
+ <nav>
+  <a href="#tools">Explore</a>
+  <a href="#community">Community</a>
+ </nav>
+</header>
+
 <section class="hero">
-<h1>Create Your AI World</h1>
-<p>Discover the power of artificial intelligence.<br>
-Create amazing images and videos with AI.</p>
-<button onclick="alert('Welcome to AI WORLD!')">Get Started</button>
+ <div class="tag">WELCOME TO THE FUTURE</div>
+ <h1>Create Without<br><span>Limits.</span></h1>
+ <p>
+  Discover a new world of creativity.
+  Turn your imagination into amazing images
+  and videos with artificial intelligence.
+ </p>
+ <a class="btn" href="#tools">Explore AI World →</a>
 </section>
-<section class="cards">
-<div class="card">
-<h2>AI Images</h2>
-<p>Bring your ideas to life with AI images.</p>
-</div>
-<div class="card">
-<h2>AI Videos</h2>
-<p>Turn your imagination into videos.</p>
-</div>
-<div class="card">
-<h2>AI Community</h2>
-<p>Explore and share creative ideas.</p>
-</div>
+
+<section class="section" id="tools">
+ <h2>Explore Your Creativity</h2>
+ <p>Everything you need to bring your ideas to life.</p>
+
+ <div class="cards">
+  <div class="card">
+   <div class="symbol">🎨</div>
+   <h3>AI Images</h3>
+   <p>Transform your imagination into stunning AI-generated images.</p>
+   <a href="#community">Explore →</a>
+  </div>
+
+  <div class="card">
+   <div class="symbol">🎬</div>
+   <h3>AI Videos</h3>
+   <p>Bring your stories to life with creative AI video generation.</p>
+   <a href="#community">Explore →</a>
+  </div>
+
+  <div class="card">
+   <div class="symbol">🌎</div>
+   <h3>AI Community</h3>
+   <p>Discover creations, share inspiration and connect with creators.</p>
+   <a href="#community">Explore →</a>
+  </div>
+
+  <div class="card">
+   <div class="symbol">✨</div>
+   <h3>My Creations</h3>
+   <p>Your personal space for your creative journey.</p>
+   <a href="#community">Coming Soon →</a>
+  </div>
+ </div>
 </section>
-<footer>© 2026 AI WORLD</footer>
+
+<section class="community" id="community">
+ <h2>Imagine. Create. Inspire.</h2>
+ <p>Your creative world starts here.</p>
+ <a class="btn" href="#tools">Start Exploring</a>
+</section>
+
+<footer>
+ © 2026 AI WORLD. All rights reserved.
+</footer>
+
 </body>
 </html>
-
