@@ -27,7 +27,38 @@ h1 span{background:linear-gradient(90deg,#c18cff,#f1d5ff,#b77aff);-webkit-backgr
 .primary{background:linear-gradient(110deg,#853bd1,#c18aff);color:white;box-shadow:0 0 28px #9d52ed55}
 .secondary{border:1px solid #a477d4;color:#e0caff}
 .btn:hover{transform:translateY(-4px);filter:brightness(1.15)}
-section{padding:75px 7%}
+section{padding:75px 7%} 
+  #signup{
+  max-width:600px;
+  margin:auto;
+  text-align:center;
+}
+
+#signup form{
+  display:flex;
+  flex-direction:column;
+  gap:15px;
+  margin-top:30px;
+}
+
+#signup input{
+  padding:15px;
+  border-radius:10px;
+  border:1px solid #a477d4;
+  background:#171022;
+  color:white;
+  font-size:15px;
+}
+
+#signup button{
+  padding:15px;
+  border:0;
+  border-radius:10px;
+  background:linear-gradient(110deg,#853bd1,#c18aff);
+  color:white;
+  font-weight:bold;
+  cursor:pointer;
+}
 .section-title{text-align:center;font-size:34px;margin-bottom:14px}
 .section-sub{text-align:center;color:#9990a8;margin-bottom:40px}
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:22px;max-width:1100px;margin:auto}
