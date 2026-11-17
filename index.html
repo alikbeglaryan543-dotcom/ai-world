@@ -178,6 +178,17 @@ footer{padding:28px 7%;border-top:1px solid #ffffff18;display:flex;justify-conte
 <div>© 2026 AI WORLD. All rights reserved.</div>
 <div>Create Without Limits.</div>
 </footer>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
+<script>
+  const SUPABASE_URL = "https://vmiwndsbffcarwrhvkww.supabase.co";
+
+  const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_d9sT4fQy95X-dIvfJwra2g_ERQ6Gzl1";
+
+  const supabaseClient = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_PUBLISHABLE_KEY
+  );
+</script>
 </body>
 </html>
