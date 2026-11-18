@@ -190,7 +190,7 @@ footer{padding:28px 7%;border-top:1px solid #ffffff18;display:flex;justify-conte
     SUPABASE_PUBLISHABLE_KEY
   ); 
 const signupForm = document.getElementById("signupForm");
-alert("Full Name: " + fullName + "\nUsername: " + username);
+
 signupForm.addEventListener("submit", async function(event) {
   event.preventDefault();
 
@@ -198,7 +198,7 @@ signupForm.addEventListener("submit", async function(event) {
   const username = document.getElementById("username").value.trim();
   const email = document.getElementById("email").value.trim();
   const password = document.getElementById("password").value;
-
+alert("Full Name: " + fullName + "\nUsername: " + username);
   const { data, error } = await supabaseClient.auth.signUp({
     email: email,
     password: password,
