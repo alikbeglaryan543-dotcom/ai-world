@@ -1,24 +1,87 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>AI WORLD — Workspace</title>
+
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
     body {
       font-family: Arial, sans-serif;
       background: #090711;
       color: white;
       padding: 30px 7%;
     }
+
     header {
       padding: 20px 0;
       border-bottom: 1px solid #ffffff22;
     }
-    h1 { color: #c18cff; }
-    main { text-align: center; padding: 80px 10px; }
-    p { color: #aaa1b6; margin-top: 15px; }
+
+    h1 {
+      color: #c18cff;
+    }
+
+    main {
+      text-align: center;
+      padding: 60px 10px;
+    }
+
+    p {
+      color: #aaa1b6;
+      margin-top: 15px;
+    }
+
+    .profile-card {
+      max-width: 420px;
+      margin: 35px auto 0;
+      padding: 25px;
+      background: #171322;
+      border: 1px solid #ffffff22;
+      border-radius: 14px;
+      text-align: left;
+    }
+
+    .profile-card h3 {
+      color: #c18cff;
+      margin-bottom: 22px;
+      text-align: center;
+    }
+
+    .profile-row {
+      padding: 13px 0;
+      border-bottom: 1px solid #ffffff18;
+    }
+
+    .profile-row:last-child {
+      border-bottom: none;
+    }
+
+    .profile-label {
+      color: #aaa1b6;
+      font-size: 13px;
+    }
+
+    .profile-value {
+      color: white;
+      margin-top: 7px;
+      font-size: 16px;
+      overflow-wrap: anywhere;
+    }
+
+    #profileMessage {
+      text-align: center;
+      color: #c18cff;
+      margin-top: 20px;
+    }
+
     button {
       margin-top: 30px;
       padding: 13px 25px;
@@ -31,6 +94,7 @@
     }
   </style>
 </head>
+
 <body>
 
 <header>
@@ -40,15 +104,37 @@
 <main>
   <h2>Welcome to Your Workspace</h2>
   <p>Your personal creative world starts here.</p>
+
+  <section class="profile-card">
+    <h3>My Profile</h3>
+
+    <div class="profile-row">
+      <div class="profile-label">Full Name</div>
+      <div class="profile-value" id="fullName">Loading...</div>
+    </div>
+
+    <div class="profile-row">
+      <div class="profile-label">Username</div>
+      <div class="profile-value" id="username">Loading...</div>
+    </div>
+
+    <div class="profile-row">
+      <div class="profile-label">Public ID</div>
+      <div class="profile-value" id="publicId">Loading...</div>
+    </div>
+
+    <div id="profileMessage"></div>
+  </section>
+
   <button id="logoutButton">Log Out</button>
 </main>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <script>
   const SUPABASE_URL = "https://vmiwndsbffcarwrhvkww.supabase.co";
 
-
-const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_d9sT4fQy95X-dIvfJwra2g_ERQ6Gzl1";
+  const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_d9sT4fQy95X-dIvfJwra2g_ERQ6GZl1";
 
   const supabaseClient = window.supabase.createClient(
     SUPABASE_URL,
@@ -56,18 +142,53 @@ const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_d9sT4fQy95X-dIvfJwra2g_ERQ6Gzl1
   );
 
   async function checkUser() {
-    const { data, error } = await supabaseClient.auth.getSession();
+    const { data, error } = await supabaseClient.auth.getUser();
 
-    if (error || !data.session) {
+    if (error || !data.user) {
       window.location.href = "index.html";
+      return;
     }
+
+    loadProfile(data.user.id);
+  }
+
+  async function loadProfile(userId) {
+    const { data: profile, error } = await supabaseClient
+      .from("profiles")
+      .select("full_name, username, public_id")
+      .eq("user_id", userId)
+      .maybeSingle();
+
+    if (error) {
+      document.getElementById("profileMessage").textContent =
+        "Could not load profile. Please try again.";
+      return;
+    }
+
+    if (!profile) {
+      document.getElementById("profileMessage").textContent =
+        "Profile information was not found.";
+      return;
+    }
+
+    document.getElementById("fullName").textContent =
+      profile.full_name || "Not provided";
+
+    document.getElementById("username").textContent =
+      profile.username || "Not provided";
+
+    document.getElementById("publicId").textContent =
+      profile.public_id ?? "Not assigned";
   }
 
   checkUser();
 
   document.getElementById("logoutButton").addEventListener("click", async function() {
-    await supabaseClient.auth.signOut();
-    window.location.href = "index.html";
+    const { error } = await supabaseClient.auth.signOut();
+
+    if (!error) {
+      window.location.href = "index.html";
+    }
   });
 </script>
 
