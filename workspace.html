@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI WORLD — Workspace</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: Arial, sans-serif;
+      background: #090711;
+      color: white;
+      padding: 30px 7%;
+    }
+    header {
+      padding: 20px 0;
+      border-bottom: 1px solid #ffffff22;
+    }
+    h1 { color: #c18cff; }
+    main { text-align: center; padding: 80px 10px; }
+    p { color: #aaa1b6; margin-top: 15px; }
+    button {
+      margin-top: 30px;
+      padding: 13px 25px;
+      border: 0;
+      border-radius: 9px;
+      background: #a45be5;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>AI WORLD</h1>
+</header>
+
+<main>
+  <h2>Welcome to Your Workspace</h2>
+  <p>Your personal creative world starts here.</p>
+  <button id="logoutButton">Log Out</button>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+  const SUPABASE_URL = "https://vmiwndsbffcarwrhvkww.supabase.co";
+
+
+const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_d9sT4fQy95X-dIvfJwra2g_ERQ6Gzl1";
+
+  const supabaseClient = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_PUBLISHABLE_KEY
+  );
+
+  async function checkUser() {
+    const { data, error } = await supabaseClient.auth.getSession();
+
+    if (error || !data.session) {
+      window.location.href = "index.html";
+    }
+  }
+
+  checkUser();
+
+  document.getElementById("logoutButton").addEventListener("click", async function() {
+    await supabaseClient.auth.signOut();
+    window.location.href = "index.html";
+  });
+</script>
+
+</body>
+</html>
