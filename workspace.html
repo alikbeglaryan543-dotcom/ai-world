@@ -142,15 +142,13 @@
   );
 
   async function checkUser() {
-    const { data, error } = await supabaseClient.auth.getUser();
+  const { data, error } = await supabaseClient.auth.getSession();
 
-    if (error || !data.user) {
-      window.location.href = "index.html";
-      return;
-    }
-
-    loadProfile(data.user.id);
-  }
+  if (error || !data.session) {
+    window.location.href = "index.html";
+    return; }
+  loadProfile(data.session.user.id);
+}
 
   async function loadProfile(userId) {
     const { data: profile, error } = await supabaseClient
