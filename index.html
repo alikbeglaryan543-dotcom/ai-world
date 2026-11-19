@@ -232,7 +232,28 @@ alert("Full Name: " + fullName + "\nUsername: " + username);
 
   signupForm.reset();
 });
+const loginForm = document.getElementById("loginForm");
 
+loginForm.addEventListener("submit", async function(event) {
+  event.preventDefault();
+
+  const email = document.getElementById("loginEmail").value.trim();
+  const password = document.getElementById("loginPassword").value;
+
+  const { data, error } = await supabaseClient.auth.signInWithPassword({
+    email: email,
+    password: password
+  });
+
+  if (error) {
+    alert(error.message);
+    return;
+  }
+
+  alert("Login successful!");
+
+  loginForm.reset();
+});
 </script>
 </body>
 </html>
