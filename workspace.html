@@ -115,7 +115,37 @@
       margin-top: 15px;
       color: #c18cff;
     }
-  
+  #changePasswordForm {
+  max-width: 420px;
+  margin: 35px auto;
+  padding: 25px;
+  background: #171322;
+  border: 1px solid #ffffff22;
+  border-radius: 14px;
+}
+
+#changePasswordForm h3 {
+  color: #c18cff;
+  margin-bottom: 15px;
+}
+
+#changePasswordForm input {
+  display: block;
+  width: 100%;
+  padding: 13px;
+  margin-top: 15px;
+  border: 1px solid #ffffff33;
+  border-radius: 8px;
+  background: #090711;
+  color: white;
+  font-size: 15px;
+}
+
+#passwordMessage {
+  text-align: center;
+  margin-top: 15px;
+  color: #c18cff;
+}
   </style>
 </head>
 
@@ -162,6 +192,27 @@
   </section>
 
   <button id="logoutButton">Log Out</button>
+  <div id="changePasswordForm">
+  <h3>Change Password</h3>
+
+  <input
+    type="password"
+    id="newPassword"
+    placeholder="New Password"
+  >
+
+  <input
+    type="password"
+    id="confirmPassword"
+    placeholder="Confirm New Password"
+  >
+
+  <button id="changePasswordButton">
+    Update Password
+  </button>
+
+  <div id="passwordMessage"></div>
+</div>
 </main>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -274,6 +325,35 @@ document.getElementById("editUsername").value =
       window.location.href = "index.html";
     }
   });
+  document.getElementById("changePasswordButton").addEventListener("click", async function() {
+  const newPassword = document.getElementById("newPassword").value;
+  const confirmPassword = document.getElementById("confirmPassword").value;
+  const message = document.getElementById("passwordMessage");
+
+  if (newPassword.length < 6) {
+    message.textContent = "Password must be at least 6 characters.";
+    return;
+  }
+
+  if (newPassword !== confirmPassword) {
+    message.textContent = "Passwords do not match.";
+    return;
+  }
+
+  const { error } = await supabaseClient.auth.updateUser({
+    password: newPassword
+  });
+
+  if (error) {
+    message.textContent = error.message;
+    return;
+  }
+
+  message.textContent = "Password updated successfully!";
+
+  document.getElementById("newPassword").value = "";
+  document.getElementById("confirmPassword").value = "";
+});
 </script>
 
 </body>
