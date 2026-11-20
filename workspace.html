@@ -82,6 +82,7 @@
       margin-top: 20px;
     }
 
+    
     button {
       margin-top: 30px;
       padding: 13px 25px;
@@ -92,6 +93,29 @@
       font-weight: bold;
       cursor: pointer;
     }
+
+    #editProfileForm {
+      margin-top: 25px;
+    }
+
+    #editProfileForm input {
+      display: block;
+      width: 100%;
+      padding: 13px;
+      margin-top: 15px;
+      border: 1px solid #ffffff33;
+      border-radius: 8px;
+      background: #090711;
+      color: white;
+      font-size: 15px;
+    }
+
+    #editMessage {
+      text-align: center;
+      margin-top: 15px;
+      color: #c18cff;
+    }
+  
   </style>
 </head>
 
@@ -123,7 +147,18 @@
       <div class="profile-value" id="publicId">Loading...</div>
     </div>
 
-    <div id="profileMessage"></div>
+    <div id="profileMessage"></div> <button id="editProfileButton">Edit Profile
+    </button> <div id="editProfileForm" style="display: none;">
+  <h3>Edit My Profile</h3>
+
+  <input type="text" id="editFullName" placeholder="Full Name">
+
+  <input type="text" id="editUsername" placeholder="Username">
+
+  <button id="saveProfileButton">Save Changes</button>
+
+  <div id="editMessage"></div>
+</div>
   </section>
 
   <button id="logoutButton">Log Out</button>
@@ -147,7 +182,7 @@
   if (error || !data.session) {
     window.location.href = "index.html";
     return; }
-  loadProfile(data.session.user.id);
+  await loadProfile(data.session.user.id);
 }
 
   async function loadProfile(userId) {
@@ -177,10 +212,61 @@
 
     document.getElementById("publicId").textContent =
       profile.public_id ?? "Not assigned";
+    document.getElementById("editFullName").value =
+      profile.full_name || "";
+
+
+document.getElementById("editUsername").value =
+      profile.username || "";
   }
 
+  
   checkUser();
+ document.getElementById("editProfileButton").addEventListener("click", function() {
+  document.getElementById("editProfileForm").style.display = "block";
+});
+    document.getElementById("saveProfileButton").addEventListener("click", async function() {
+  const fullName = document.getElementById("editFullName").value.trim();
+  const username = document.getElementById("editUsername").value.trim();
 
+  if (!fullName || !username) {
+    document.getElementById("editMessage").textContent =
+      "Please fill in both fields.";
+    return;
+  }
+
+  const { data, error } = await supabaseClient.auth.getSession();
+
+  if (error || !data.session) {
+    document.getElementById("editMessage").textContent =
+      "Session expired. Please log in again.";
+    return;
+  }
+
+  const { data: updatedProfile, error: updateError } = await supabaseClient
+    .from("profiles")
+    .update({
+      full_name: fullName,
+      username: username
+    })
+    .eq("user_id", data.session.user.id)
+    .select()
+    .maybeSingle();
+  if (updateError) {
+    document.getElementById("editMessage").textContent =
+      updateError.message;
+    return;
+  }
+  if (!updatedProfile) {
+    document.getElementById("editMessage").textContent =
+      "Profile was not updated. Please try again.";
+    return;
+  }
+  document.getElementById("fullName").textContent = fullName;
+  document.getElementById("username").textContent = username;
+  document.getElementById("editMessage").textContent =
+    "Profile updated successfully!";
+});
   document.getElementById("logoutButton").addEventListener("click", async function() {
     const { error } = await supabaseClient.auth.signOut();
 
