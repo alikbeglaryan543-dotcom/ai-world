@@ -146,6 +146,62 @@
   margin-top: 15px;
   color: #c18cff;
 }
+/* AI IMAGE GENERATOR */
+
+.generator-card {
+  max-width: 650px;
+  margin: 50px auto;
+  padding: 30px;
+  background: #171322;
+  border: 1px solid #ffffff22;
+  border-radius: 16px;
+  text-align: left;
+}
+
+.generator-card h2 {
+  color: #c18cff;
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.generator-card p {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.generator-card label {
+  display: block;
+  margin-top: 20px;
+  color: #c18cff;
+}
+
+.generator-card textarea,
+.generator-card select {
+  width: 100%;
+  padding: 14px;
+  margin-top: 10px;
+  border: 1px solid #ffffff33;
+  border-radius: 8px;
+  background: #090711;
+  color: white;
+  font-size: 15px;
+}
+
+.generator-card textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.generator-card button {
+  width: 100%;
+  margin-top: 25px;
+}
+
+#generatorMessage {
+  text-align: center;
+  margin-top: 20px;
+  color: #c18cff;
+}
   </style>
 </head>
 
@@ -158,6 +214,33 @@
 <main>
   <h2>Welcome to Your Workspace</h2>
   <p>Your personal creative world starts here.</p>
+
+  <section class="generator-card">
+    <h2>AI Image Generator</h2>
+    <p>Turn your imagination into reality.</p>
+
+    <label for="imagePrompt">Describe your image</label>
+    <textarea id="imagePrompt" placeholder="Describe the image you want to create..."></textarea>
+
+    <label for="imageStyle">Choose Image Style</label>
+    <select id="imageStyle">
+      <option value="realistic">Realistic</option>
+      <option value="cinematic">Cinematic</option>
+      <option value="artistic">Artistic</option>
+      <option value="anime">Anime</option>
+      <option value="3d">3D</option>
+    </select>
+
+    <label for="imageSize">Choose Image Size</label>
+    <select id="imageSize">
+      <option value="square">Square</option>
+      <option value="portrait">Portrait</option>
+      <option value="landscape">Landscape</option>
+    </select>
+
+    <button id="generateImageButton">Generate Image</button>
+    <div id="generatorMessage"></div>
+  </section>
 
   <section class="profile-card">
     <h3>My Profile</h3>
