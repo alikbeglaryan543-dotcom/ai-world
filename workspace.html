@@ -356,6 +356,20 @@ document.getElementById("editUsername").value =
 
   
   checkUser();
+  document.getElementById("generateImageButton").addEventListener("click", function() {
+  const prompt = document.getElementById("imagePrompt").value.trim();
+  const style = document.getElementById("imageStyle").value;
+  const size = document.getElementById("imageSize").value;
+  const message = document.getElementById("generatorMessage");
+
+  if (!prompt) {
+    message.textContent = "Please describe the image first.";
+    return;
+  }
+
+  message.textContent =
+    "Your image request is ready. AI generation will be connected soon.";
+});
  document.getElementById("editProfileButton").addEventListener("click", function() {
   document.getElementById("editProfileForm").style.display = "block";
 });
